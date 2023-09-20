@@ -9,23 +9,22 @@ const itemsReducer = (state = [], action) => {
     case 'DELETE_ITEM':
       return state.filter((item) => item.id !== action.payload.id);
     default:
-      return state
+      return state;
   }
 };
-
 const editingItemReducer = (state = null, action) => {
   switch (action.type) {
-    case 'EDIT_ITEM':
-      return action.payload.id;
+    case 'SET_EDITING_ITEM':
+      return action.payload;
     case 'ADD_ITEM':
     case 'DELETE_ITEM':
+      return null;
     case 'RESET_EDITING_ITEM':
       return null;
     default:
       return state;
   }
 };
-
 
 
 export { itemsReducer, editingItemReducer };

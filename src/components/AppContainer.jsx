@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { addItem, editItem, deleteItem } from './actions'
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem, editItem, deleteItem, resetEditingItem } from './actions';
 
 function AppContainer() {
   const items = useSelector((state) => state.items);
   const editingItemId = useSelector((state) => state.editingItem);
   const dispatch = useDispatch();
-  const [editingItemData, setEditingItemData] = useState(null); 
-  const [nameInput, setNameInput] = useState(''); 
+  const [editingItemData, setEditingItemData] = useState(null);
+  const [nameInput, setNameInput] = useState('');
   const [costInput, setCostInput] = useState(''); 
 
   const handleAddItem = () => {
@@ -24,7 +24,7 @@ function AppContainer() {
       setEditingItemData(editedItem);
       setNameInput(editedItem.name);
       setCostInput(editedItem.cost.toString());
-      dispatch({ type: 'SET_EDITING_ITEM', payload: editedItem.id }); 
+      dispatch({ type: 'SET_EDITING_ITEM', payload: editedItem.id });
     }
   };
   
@@ -38,16 +38,15 @@ function AppContainer() {
         cost: Number(costInput),
       };
   
-
       dispatch({ type: 'UPDATE_ITEM', payload: updatedItem });
   
       setEditingItemData(null);
       setNameInput('');
       setCostInput('');
+
+      dispatch(resetEditingItem());
     }
   };
-  
-  
   
 
   const handleDeleteItem = (id) => {

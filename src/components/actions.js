@@ -22,3 +22,7 @@ export const updateItem = (id, name, cost) => ({
   type: 'UPDATE_ITEM',
   payload: { id, name, cost },
 });
+
+export const resetEditingItem = () => ({
+  type: 'RESET_EDITING_ITEM',
+});
