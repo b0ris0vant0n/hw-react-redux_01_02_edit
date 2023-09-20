@@ -60,8 +60,8 @@ function AppContainer() {
         {items.map((item) => (
           <li key={item.id}>
             {item.name} - {item.cost}
-            <button onClick={() => handleEditItem(item.id)}>Редактировать</button>
-            <button onClick={() => handleDeleteItem(item.id)}>Удалить</button>
+            <button onClick={() => handleEditItem(item.id)}>✏️</button>
+            <button onClick={() => handleDeleteItem(item.id)}>❌</button>
           </li>
         ))}
       </ul>
