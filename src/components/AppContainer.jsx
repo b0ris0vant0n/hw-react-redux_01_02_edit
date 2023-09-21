@@ -9,6 +9,8 @@ function AppContainer() {
   const [editingItemData, setEditingItemData] = useState(null);
   const [nameInput, setNameInput] = useState('');
   const [costInput, setCostInput] = useState(''); 
+  const [filter, setFilter] = useState('');
+
 
   const handleAddItem = () => {
     if (nameInput && costInput) {
@@ -56,14 +58,22 @@ function AppContainer() {
   return (
     <div>
       <h1>Список элементов</h1>
+      <input
+        type="text"
+        placeholder="Фильтр по наименованию"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      />
       <ul>
-        {items.map((item) => (
-          <li key={item.id}>
-            {item.name} - {item.cost}
-            <button onClick={() => handleEditItem(item.id)}>✏️</button>
-            <button onClick={() => handleDeleteItem(item.id)}>❌</button>
-          </li>
-        ))}
+        {items
+          .filter((item) => item.name.includes(filter))
+          .map((item) => (
+            <li key={item.id}>
+              {item.name} - {item.cost}
+              <button onClick={() => handleEditItem(item.id)}>Редактировать</button>
+              <button onClick={() => handleDeleteItem(item.id)}>Удалить</button>
+            </li>
+          ))}
       </ul>
       {editingItemId === null ? (
         <div>
@@ -73,12 +83,14 @@ function AppContainer() {
             placeholder="Наименование"
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
+            className="input-field" 
           />
           <input
             type="number"
             placeholder="Стоимость"
             value={costInput}
             onChange={(e) => setCostInput(e.target.value)}
+            className="input-field-price" 
           />
           <button onClick={handleAddItem}>Сохранить</button>
         </div>
@@ -90,12 +102,14 @@ function AppContainer() {
             placeholder="Наименование"
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
+            className="input-field" 
           />
           <input
             type="number"
             placeholder="Стоимость"
             value={costInput}
             onChange={(e) => setCostInput(e.target.value)}
+            className="input-field-price" 
           />
           <button onClick={handleSaveEdit}>Сохранить</button>
           <button onClick={() => setEditingItemData(null)}>Отмена</button>
